@@ -1,17 +1,18 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <img alt="Brain" src="./assets/brain-2062057_640.jpg">
+    <caption>Image <a href="https://pixabay.com/ru/users/ElisaRiva-1348268">ElisaRiva</a> from stock <a href="https://pixabay.com/ru/">Pixabay</a></caption>
+    <NeuralNetworks msg="Neural network analysis"/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import NeuralNetworks from './components/NeuralNetworks.vue';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    NeuralNetworks
   }
 }
 </script>
