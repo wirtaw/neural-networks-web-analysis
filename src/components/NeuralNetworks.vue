@@ -6,6 +6,7 @@
     </p>
     <h3>List of the neural network libraries</h3>
     <ul>
+      <li><a href="#" target="_blank" rel="noopener">Tensorflow</a></li>
       <li><a href="#" target="_blank" rel="noopener">BrainJS</a></li>
       <li><a href="#" target="_blank" rel="noopener">Mindjs.net</a></li>
       <li><a href="#" target="_blank" rel="noopener">neuro.js</a></li>
