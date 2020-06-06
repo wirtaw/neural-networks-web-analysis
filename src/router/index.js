@@ -2,9 +2,9 @@ import Vue from 'vue';
 import Router from 'vue-router';
 
 // Components
-import Main from './../src/components/Main.vue';
-import Page from './../src/components/Page.vue';
-import NotFoundComponent from './../src/components/NotFoundComponent.vue';
+import Main from './../components/Main.vue';
+import Page from './../components/Page.vue';
+import NotFoundComponent from './../components/NotFoundComponent.vue';
 
 Vue.use(Router);
 

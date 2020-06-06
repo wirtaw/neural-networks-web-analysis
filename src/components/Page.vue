@@ -1,14 +1,20 @@
 <template>
   <div>
     <p>{{ type }}</p>
-    <p> {{ neuralNetwork.name }} neuralname</p>
+    <h2>{{ neuralNetwork.name }}</h2>
+    <LearnForm/>
     <router-link to="/">back to main</router-link>
   </div>
 </template>
 
 <script>
+  import { mapActions } from 'vuex';
+  import LearnForm from './elements/LearnForm.vue';
   export default {
     name: 'Page',
+    components: {
+      LearnForm
+    },
     data () {
       return {
         networks: {
@@ -39,6 +45,9 @@
     props: {
       type: String
     },
+    mounted() {
+      this.changeLibraryType(this.$route.params.neuralname);
+    },
     computed: {
       neuralNetwork() {
         return (this.$route.params.neuralname in this.networks)
@@ -48,7 +57,10 @@
     methods: {
       goBack() {
         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
-      }
+      },
+      ...mapActions({
+        changeLibraryType: 'learnModel/changeLibraryType',
+      }),
     }
   }
 </script>
