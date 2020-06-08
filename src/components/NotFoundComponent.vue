@@ -1,7 +1,9 @@
 <template>
   <div class="error404">
     <p> page not found :(</p>
-    <router-link to="/">back to main</router-link>
+    <router-link to="/">
+      back to main
+    </router-link>
   </div>
 </template>
 

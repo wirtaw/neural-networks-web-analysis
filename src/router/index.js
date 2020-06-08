@@ -9,8 +9,8 @@ import NotFoundComponent from './../components/NotFoundComponent.vue';
 Vue.use(Router);
 
 export default new Router({
+  base: process.env.BASE_URL,
   linkActiveClass: 'active',
-  mode: 'history',
   routes: [
     // routes
     { name: 'home', path: '/', component: Main },

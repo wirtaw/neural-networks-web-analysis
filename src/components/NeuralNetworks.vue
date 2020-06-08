@@ -1,18 +1,46 @@
 <template>
-  <div class="hello">
+  <div class="container">
     <h1>{{ msg }}</h1>
     <p>
       Blog post about - <a href="https://blog.poplauki.eu/ru/?p=779">link</a>
     </p>
     <h3>List of the neural network libraries</h3>
     <ul>
-      <li><router-link to="/page/tensorflow">Tensorflow</router-link></li>
-      <li><router-link to="/page/brainjs">BrainJS</router-link></li>
-      <li><router-link to="/page/mindjsnet">Mindjs.net</router-link></li>
-      <li><router-link to="/page/neurojs">neuro.js</router-link></li>
-      <li><router-link to="/page/convnetjs">ConvNetJS</router-link></li>
-      <li><router-link to="/page/neuralnet">neuralnet</router-link></li>
-      <li><router-link to="/page/genericsjs">generics.js</router-link></li>
+      <li>
+        <router-link to="/page/tensorflow">
+          Tensorflow
+        </router-link>
+      </li>
+      <li>
+        <router-link to="/page/brainjs">
+          BrainJS
+        </router-link>
+      </li>
+      <li>
+        <router-link to="/page/mindjsnet">
+          Mindjs.net
+        </router-link>
+      </li>
+      <li>
+        <router-link to="/page/neurojs">
+          neuro.js
+        </router-link>
+      </li>
+      <li>
+        <router-link to="/page/convnetjs">
+          ConvNetJS
+        </router-link>
+      </li>
+      <li>
+        <router-link to="/page/neuralnet">
+          neuralnet
+        </router-link>
+      </li>
+      <li>
+        <router-link to="/page/genericsjs">
+          generics.js
+        </router-link>
+      </li>
     </ul>
   </div>
 </template>
@@ -21,7 +49,10 @@
 export default {
   name: 'NeuralNetworks',
   props: {
-    msg: String
+    msg: {
+      type: String,
+      default: 'Name of the network',
+    },
   },
   computed: {
   },

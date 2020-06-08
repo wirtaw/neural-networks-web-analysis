@@ -1,9 +1,11 @@
 <template>
-  <div>
+  <div class="container is-fullhd">
     <p>{{ type }}</p>
     <h2>{{ neuralNetwork.name }}</h2>
-    <LearnForm/>
-    <router-link to="/">back to main</router-link>
+    <LearnForm />
+    <router-link to="/">
+      back to main
+    </router-link>
   </div>
 </template>
 
@@ -14,6 +16,12 @@
     name: 'Page',
     components: {
       LearnForm
+    },
+    props: {
+      type: {
+        type: String,
+        default: 'Name of the network',
+      }
     },
     data () {
       return {
@@ -42,17 +50,14 @@
         }
       }
     },
-    props: {
-      type: String
-    },
-    mounted() {
-      this.changeLibraryType(this.$route.params.neuralname);
-    },
     computed: {
       neuralNetwork() {
         return (this.$route.params.neuralname in this.networks)
           ? this.networks[this.$route.params.neuralname] : { name : 'unknown'}
       }
+    },
+    mounted() {
+      this.changeLibraryType(this.$route.params.neuralname);
     },
     methods: {
       goBack() {
