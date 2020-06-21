@@ -1,48 +1,65 @@
 <template>
   <div class="tile is-ancestor">
-    <div class="tile is-parent" />
     <div class="tile is-parent">
-      <div class="container">
-        <div class="field">
-          <label
-            for="name"
-            class="label"
-          >Model name</label>
-          <div class="control">
-            <input
-              id="name"
-              :value="name"
-              type="text"
-              @input="inputEpoch"
-            >
+      <div
+        v-if="showForm"
+        class="container form"
+      >
+        <div class="field is-horizontal">
+          <div class="field-label">
+            <label
+              for="name"
+              class="label"
+            >Model name</label>
+          </div>
+          <div class="field-body">
+            <div class="control">
+              <input
+                id="name"
+                :value="name"
+                type="text"
+                class="input"
+                @input="inputEpoch"
+              >
+            </div>
           </div>
         </div>
-        <div class="field">
-          <label
-            for="epoch"
-            class="label"
-          >Epoch</label>
-          <div class="control">
-            <input
-              id="epoch"
-              :value="epochs"
-              type="number"
-              @input="inputEpoch"
-            >
+        <div class="field is-horizontal">
+          <div class="field-label">
+            <label
+              for="epoch"
+              class="label"
+            >Epoch</label>
+          </div>
+          <div class="field-body">
+            <div class="control">
+              <input
+                id="epoch"
+                :value="epochs"
+                type="number"
+                class="input"
+                @input="inputEpoch"
+              >
+            </div>
           </div>
         </div>
-        <div class="field">
-          <label
-            for="iterations"
-            class="label"
-          >Iterations</label>
-          <div class="control">
-            <input
-              id="iterations"
-              :value="iterations"
-              type="number"
-              @input="inputIterations"
-            >
+        <div class="field is-horizontal">
+          <div class="field-label">
+            <label
+              for="iterations"
+              class="label"
+            >Iterations</label>
+          </div>
+          <div class="field-body">
+            <div class="control">
+              <input
+                id="iterations"
+                :value="iterations"
+                type="number"
+                class="input"
+                @input="inputIterations"
+              >
+            </div>
           </div>
         </div>
         <div class="field is-grouped is-grouped-centered">
@@ -50,6 +67,7 @@
             <button
               class="button is-link"
               @click="startLearn"
+              @disabled="isDisabledTrain"
             >
               Submit
             </button>
@@ -58,7 +76,7 @@
       </div>
     </div>
     <div class="tile is-parent">
-      <h3>Logs</h3>
+      <h4>Logs</h4>
     </div>
   </div>
 </template>
@@ -71,8 +89,15 @@
       ...mapState({
         name: state => state.learnModel.name,
         epochs: state => state.learnModel.epochs,
-        iterations: state => state.learnModel.numTrainingIterations
-      })
+        iterations: state => state.learnModel.numTrainingIterations,
+        isDisabledTrain: state => state.learnModel.trainDisabled,
+        learnData: state => state.learnModel.learnData,
+        testData: state => state.learnModel.testData,
+      }),
+      showForm() {
+        return this.testData && Object.values(this.testData).length > 0
+          && this.learnData && Object.values(this.learnData).length >0
+      }
     },
     methods: {
       ...mapActions({
