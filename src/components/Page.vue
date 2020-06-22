@@ -58,7 +58,7 @@
             <div class="content is-medium">
               <div class="columns">
                 <div class="column is-12">
-                  <LearnForm />
+                  <LearnForm :net-name="neuralNetwork.name" />
                 </div>
               </div>
               <div class="columns">
