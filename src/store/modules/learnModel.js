@@ -4,9 +4,9 @@ const state = {
   name: 'pitch-1',
   start: false,
   libraryType: '',
-  trainDisabled: true,
   learnData: null,
   testData: null,
+  trainStatus: '',
 }
 
 const getters = {
@@ -29,14 +29,14 @@ const mutations = {
   setLibrary (state, payload) {
     state.libraryType = payload
   },
-  setTrainButton(state, payload) {
-    state.trainDisabled = payload
-  },
   setTrainData(state, payload) {
     state.learnData = { ...payload }
   },
   setTestData(state, payload) {
     state.testData = { ...payload }
+  },
+  setStatus(state, payload) {
+    state.trainStatus = `${payload}`
   },
 }
 
@@ -56,14 +56,14 @@ const actions = {
   changeLibraryType({ commit }, data) {
     commit('setLibrary', data)
   },
-  changeTrainButton({ commit }, data) {
-    commit('setTrainButton', data)
-  },
   loadTrainData({ commit }, data) {
     commit('setTrainData', data)
   },
   loadTestData({ commit }, data) {
     commit('setTestData', data)
+  },
+  changeStatus({ commit }, data) {
+    commit('setStatus', data)
   },
 }
 

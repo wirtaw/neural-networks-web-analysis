@@ -11,7 +11,7 @@
       <vue-csv-import
         v-if="!learnData || Object.values(learnData).length === 0"
         v-model="trainingJSONData"
-        url="./../../assets/data/pitch_type_training_data.csv"
+        url="https://storage.googleapis.com/mlb-pitch-data/pitch_type_training_data.csv"
         :map-fields="['vx0','vy0','vz0','ax','ay','az','startSpeed','leftHandedPitcher','pitchCode']"
       >
         <template #hasHeaders="{headers, toggle}">
@@ -38,7 +38,7 @@
       <vue-csv-import
         v-if="!testData || Object.values(testData).length === 0"
         v-model="testJSONData"
-        url="./../../assets/data/pitch_type_test_data.csv"
+        url="https://storage.googleapis.com/mlb-pitch-data/pitch_type_test_data.csv"
         :map-fields="['vx0','vy0','vz0','ax','ay','az','startSpeed','leftHandedPitcher','pitchCode']"
       >
         <template #hasHeaders="{headers, toggle}">
@@ -95,20 +95,14 @@
     watch: {
       trainingJSONData(to, from) {
         if (to && Object.values(to).length > 0) {
-          console.dir(to, {depth: 1});
           this.loadTrainData(this.normaliseData(to));
         }
       },
       testJSONData(to, from) {
         if (to && Object.values(to).length > 0) {
-          console.dir(to, {depth: 1});
           this.loadTestData(this.normaliseData(to));
         }
       }
-    },
-    mounted() {
-      console.info('Learn form mounted');
-      //console.dir(trainingJSONData, {depth: 1});
     },
     methods: {
       ...mapActions({

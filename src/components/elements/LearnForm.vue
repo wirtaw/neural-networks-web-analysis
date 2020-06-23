@@ -1,92 +1,114 @@
 <template>
-  <div class="tile is-ancestor">
-    <div class="tile is-parent">
-      <div
-        v-if="showForm"
-        class="container form"
-      >
-        <div class="field is-horizontal">
-          <div class="field-label">
-            <label
-              for="name"
-              class="label"
-            >Model name</label>
-          </div>
-          <div class="field-body">
-            <div class="control">
-              <input
-                id="name"
-                :value="name"
-                type="text"
-                class="input"
-                @input="inputEpoch"
-              >
-            </div>
-          </div>
-        </div>
-        <div class="field is-horizontal">
-          <div class="field-label">
-            <label
-              for="epoch"
-              class="label"
-            >Epoch</label>
-          </div>
-          <div class="field-body">
-            <div class="control">
-              <input
-                id="epoch"
-                :value="epochs"
-                type="number"
-                class="input"
-                @input="inputEpoch"
-              >
-            </div>
-          </div>
-        </div>
-        <div class="field is-horizontal">
-          <div class="field-label">
-            <label
-              for="iterations"
-              class="label"
-            >Iterations</label>
-          </div>
-          <div class="field-body">
-            <div class="control">
-              <input
-                id="iterations"
-                :value="iterations"
-                type="number"
-                class="input"
-                @input="inputIterations"
-              >
-            </div>
-          </div>
-        </div>
-        <div class="field is-grouped is-grouped-centered">
-          <div class="control">
-            <button
-              class="button is-link"
-              @click="startLearn"
-              @disabled="isDisabledTrain"
-            >
-              Submit
-            </button>
-          </div>
-        </div>
+  <div class="container">
+    <div
+      v-if="trainStatus === 'train'"
+      class="columns"
+    >
+      <div class="column">
+        <progress
+          class="progress tile is-child"
+          :value="trainProgress"
+          max="100"
+        >
+          {{ trainProgress }}%
+        </progress>
       </div>
     </div>
-    <div
-      v-if="showForm"
-      class="tile is-parent"
-    >
-      <h4>Logs</h4>
-      <div class="box">
-        <pre
-          v-for="item in accuracyList"
-          :key="item.key"
-        >
-          {{ item.accuracy }}
-        </pre>
+    <div class="columns">
+      <div class="column">
+        <div class="tile is-ancestor">
+          <div class="tile is-parent">
+            <div
+              v-if="showForm"
+              class="container form is-child"
+            >
+              <div class="field has-text-left">
+                <label
+                  for="name"
+                  class="label"
+                >Model name</label>
+                <div class="control">
+                  <input
+                    id="name"
+                    :value="name"
+                    type="text"
+                    class="input"
+                    @input="inputEpoch"
+                  >
+                </div>
+                <p class="help">
+                  name to save JSON with model
+                </p>
+              </div>
+              <div class="field has-text-left">
+                <label
+                  for="epoch"
+                  class="label"
+                >Epoch</label>
+                <div class="control">
+                  <input
+                    id="epoch"
+                    :value="epochs"
+                    type="number"
+                    class="input"
+                    @input="inputEpoch"
+                  >
+                </div>
+                <p class="help">
+                  count of the epoch in the an iteration
+                </p>
+              </div>
+              <div class="field has-text-left">
+                <label
+                  for="iterations"
+                  class="label"
+                >Iterations</label>
+                <div class="control">
+                  <input
+                    id="iterations"
+                    :value="iterations"
+                    type="number"
+                    class="input"
+                    @input="inputIterations"
+                  >
+                </div>
+                <p class="help">
+                  number of iteration of the train
+                </p>
+              </div>
+              <div class="field is-grouped is-grouped-centered">
+                <div class="control">
+                  <button
+                    class="button is-link"
+                    :disabled="isDisabledTrain"
+                    @click="startLearn"
+                  >
+                    Submit
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            v-if="showForm"
+            class="tile is-parent"
+          >
+            <div class="is-child">
+              <h6>Logs</h6>
+              <div
+                v-if="accuracyList && accuracyList.length > 0"
+                class="box accuracy-box"
+              >
+                <pre
+                  v-for="item in accuracyList"
+                  :key="item.key"
+                >
+            {{ item.accuracy }}
+          </pre>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -116,6 +138,8 @@
         trainingValidationData: null,
         xyDataset: null,
         xyDatasetTest: null,
+        progressBar: false,
+        trainProgress: 0
       }
     },
     computed: {
@@ -123,13 +147,22 @@
         name: state => state.learnModel.name,
         epochs: state => state.learnModel.epochs,
         iterations: state => state.learnModel.numTrainingIterations,
-        isDisabledTrain: state => state.learnModel.trainDisabled,
         learnData: state => state.learnModel.learnData,
         testData: state => state.learnModel.testData,
+        trainStatus: state => state.learnModel.trainStatus,
       }),
       showForm() {
         return this.testData && Object.values(this.testData).length > 0
-          && this.learnData && Object.values(this.learnData).length >0
+          && this.learnData && Object.values(this.learnData).length > 0
+      },
+      isDisabledTrain() {
+        let result = false;
+
+        if (this.trainStatus === 'train') {
+          result = true;
+        }
+
+        return result;
       }
     },
     methods: {
@@ -138,6 +171,7 @@
         changeEpoch: 'learnModel/changeEpoch',
         changeIteration: 'learnModel/changeIteration',
         learnModelStart: 'learnModel/learnModelStart',
+        changeStatus: 'learnModel/changeStatus',
       }),
       inputName(e) {
         this.changeName(e.target.value);
@@ -153,7 +187,9 @@
           case 'tensorflow':
             this.learnModelStart(true);
             this.learnTensorflow();
+            this.changeStatus('train');
             this.accuracyList = [];
+            this.trainProgress = 0;
             break;
           default:
             this.model =  null;
@@ -277,7 +313,11 @@
             const accuracy = await this.evaluateTensorflow(true);
 
             this.accuracyList.push({ key: `${i + 1}`, accuracy });
+            this.trainProgress = Math.ceil(((i + 1) / this.iterations * 100));
 
+            if (i + 1 === this.iterations) {
+              this.changeStatus('trainComplete');
+            }
             await this.sleep(TIMEOUT_BETWEEN_EPOCHS_MS);
           }
         }
@@ -287,5 +327,9 @@
 </script>
 
 <style scoped>
-
+  .accuracy-box {
+    max-height: 300px;
+    height: 300px;
+    overflow: auto;
+  }
 </style>
