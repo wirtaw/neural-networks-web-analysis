@@ -13,33 +13,27 @@
               <h4 class="subtitle">
                 {{ type }}
               </h4>
-              <h4>
+              <h4 v-if="trainStatus && trainStatus !== ''">
                 Status - {{ trainStatus }}
               </h4>
               <ul class="steps">
-                <li :class="{'steps-segment': true, 'is-active': getStepClass(1)}">
-                  <a
-                    href="#"
-                    class="steps-marker"
-                  />
+                <li :class="{'steps-segment': true, 'is-active': activeStep === 1}">
+                  <span class="steps-marker" />
                   <div class="steps-content is-divider-content">
                     <p class="is-size-4">
                       Load data
                     </p>
                   </div>
                 </li>
-                <li :class="{'steps-segment': true, 'is-active': getStepClass(2)}">
-                  <a
-                    href="#"
-                    class="steps-marker"
-                  />
+                <li :class="{'steps-segment': true, 'is-active': activeStep === 2}">
+                  <span class="steps-marker" />
                   <div class="steps-content is-divider-content">
                     <p class="is-size-4">
                       Train network
                     </p>
                   </div>
                 </li>
-                <li :class="{'steps-segment': true, 'is-active': getStepClass(3)}">
+                <li :class="{'steps-segment': true, 'is-active': activeStep === 3}">
                   <span class="steps-marker" />
                   <div class="steps-content is-divider-content">
                     <p class="is-size-4">
@@ -47,7 +41,7 @@
                     </p>
                   </div>
                 </li>
-                <li :class="{'steps-segment': true, 'is-active': getStepClass(4)}">
+                <li :class="{'steps-segment': true, 'is-active': activeStep === 4}">
                   <span class="steps-marker" />
                   <div class="steps-content is-divider-content">
                     <p class="is-size-4">
@@ -55,7 +49,7 @@
                     </p>
                   </div>
                 </li>
-                <li :class="{'steps-segment': true, 'is-active': getStepClass(5)}">
+                <li :class="{'steps-segment': true, 'is-active': activeStep === 5}">
                   <span class="steps-marker" />
                 </li>
               </ul>
@@ -78,30 +72,23 @@
               <p class="menu-label title is-5">
                 categories
               </p>
-              <ul class="menu-list">
-                <li>
-                  <a
-                    href="#learnform"
-                    class="is-active"
-                  > Learn form</a>
-                </li>
-                <li>
-                  <a
-                    href="#pitcherform"
-                    class="is-active"
-                  > Sensor data form</a>
-                </li>
-                <li class="is-right">
-                  <a
-                    href="#trainingaccuracy"
-                    class="is-active"
-                  > Training accuracy</a>
-                </li>
-              </ul>
             </aside>
           </div>
           <div class="column">
             <div class="content is-medium">
+              <div
+                v-if="predictClassName"
+                class="columns"
+              >
+                <div class="column is-12">
+                  {{ predictClassName }}
+                </div>
+              </div>
+              <div class="columns">
+                <div class="column is-12">
+                  <PredictForm :net-name="neuralNetwork.name" />
+                </div>
+              </div>
               <div class="columns">
                 <div class="column is-12">
                   <LearnForm :net-name="neuralNetwork.name" />
@@ -111,11 +98,6 @@
                 <div class="column is-12">
                   Import training and test data
                   <ImportData />
-                </div>
-              </div>
-              <div class="columns">
-                <div class="column is-12">
-                  Predict
                 </div>
               </div>
             </div>
@@ -130,12 +112,14 @@
   import { mapState, mapActions } from 'vuex';
   import LearnForm from './elements/LearnForm.vue';
   import ImportData from './elements/ImportData.vue';
+  import PredictForm from './elements/PredictForm.vue';
 
   export default {
     name: 'Page',
     components: {
       LearnForm,
-      ImportData
+      ImportData,
+      PredictForm
     },
     props: {
       type: {
@@ -167,7 +151,8 @@
           'genericsjs': {
             name: 'generics.js'
           }
-        }
+        },
+        activeStep: 1,
       }
     },
     computed: {
@@ -175,10 +160,26 @@
         learnData: state => state.learnModel.learnData,
         testData: state => state.learnModel.testData,
         trainStatus: state => state.learnModel.trainStatus,
+        predictClassName: state => state.learnModel.predictClassName,
       }),
       neuralNetwork() {
         return (this.$route.params.neuralname in this.networks)
           ? this.networks[this.$route.params.neuralname] : { name : 'unknown'}
+      }
+    },
+    watch: {
+      trainStatus(to, from) {
+        if (to && to === 'importData') {
+          this.activeStep = 2;
+        } else if (to && to === 'train') {
+          this.activeStep = 3;
+        } else if (to && to === 'trainComplete') {
+          this.activeStep = 4;
+        } else if (to && to === 'predict') {
+          this.activeStep = 5;
+        } else {
+          this.activeStep = 1;
+        }
       }
     },
     mounted() {
@@ -190,18 +191,7 @@
       },
       ...mapActions({
         changeLibraryType: 'learnModel/changeLibraryType',
-      }),
-      getStepClass(num) {
-        let result = false;
-
-        if (num === 2 && this.learnData && this.testData) {
-          result = true;
-        } else if (num === 1 && !this.learnData && !this.testData) {
-          result = true;
-        }
-
-        return result;
-      }
+      })
     }
   }
 </script>

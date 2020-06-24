@@ -118,10 +118,8 @@
   import * as tf from '@tensorflow/tfjs';
   import { mapState, mapActions } from 'vuex';
 
-  const NUM_PITCH_CLASSES = 7;
-  const TRAINING_DATA_LENGTH = 7000;
-  const TEST_DATA_LENGTH = 700;
-  const TIMEOUT_BETWEEN_EPOCHS_MS = 2000;
+  // Constants from training data
+  import '../../config';
 
   export default {
     name: 'LearnForm',
@@ -150,6 +148,8 @@
         learnData: state => state.learnModel.learnData,
         testData: state => state.learnModel.testData,
         trainStatus: state => state.learnModel.trainStatus,
+        predictData: state => state.learnModel.predictData,
+        constants: state => state.learnModel.constants,
       }),
       showForm() {
         return this.testData && Object.values(this.testData).length > 0
@@ -165,6 +165,35 @@
         return result;
       }
     },
+    watch: {
+      predictData(to, from) {
+        if (to && this.model) {
+          const values = [
+            this.normalize(to.vx0, this.constants.VX0_MIN, this.constants.VX0_MAX),
+            this.normalize(to.vy0, this.constants.VY0_MIN, this.constants.VY0_MAX),
+            this.normalize(to.vz0, this.constants.VZ0_MIN, this.constants.VZ0_MAX),
+            this.normalize(to.ax, this.constants.AX_MIN, this.constants.AX_MAX),
+            this.normalize(to.ay, this.constants.AY_MIN, this.constants.AY_MAX),
+            this.normalize(to.az, this.constants.AZ_MIN, this.constants.AZ_MAX),
+            this.normalize(to.startSpeed, this.constants.START_SPEED_MIN, this.constants.START_SPEED_MAX),
+            Number(to.leftHandedPitcher),
+          ];
+
+          const result = this.model.predict(tf.tensor(values, [1, values.length])).arraySync();
+
+          let maxValue = 0;
+          let predictedPitch = 7;
+          for (let i = 0; i < this.constants.NUM_PITCH_CLASSES; i++) {
+            if (result[0][i] > maxValue) {
+              predictedPitch = i;
+              maxValue = result[0][i];
+            }
+          }
+
+          this.changePredictClassName(this.pitchFromClassNum(predictedPitch));
+        }
+      }
+    },
     methods: {
       ...mapActions({
         changeName: 'learnModel/changeName',
@@ -172,6 +201,7 @@
         changeIteration: 'learnModel/changeIteration',
         learnModelStart: 'learnModel/learnModelStart',
         changeStatus: 'learnModel/changeStatus',
+        changePredictClassName: 'learnModel/changePredictClassName',
       }),
       inputName(e) {
         this.changeName(e.target.value);
@@ -183,6 +213,7 @@
         this.changeIteration(Number(e.target.value));
       },
       startLearn() {
+        this.changePredictClassName('');
         switch(this.netName) {
           case 'tensorflow':
             this.learnModelStart(true);
@@ -219,11 +250,11 @@
         }
       },
       calcPitchClassEval(pitchIndex, classSize, values) {
-        let index = (pitchIndex * classSize * NUM_PITCH_CLASSES) + pitchIndex;
+        let index = (pitchIndex * classSize * this.constants.NUM_PITCH_CLASSES) + pitchIndex;
         let total = 0;
         for (let i = 0; i < classSize; i++) {
           total += values[index];
-          index += NUM_PITCH_CLASSES;
+          index += this.constants.NUM_PITCH_CLASSES;
         }
         return total / classSize;
       },
@@ -231,8 +262,8 @@
         const results = {};
         await this.trainingValidationData.forEachAsync(pitchTypeBatch => {
           const values = this.model.predict(pitchTypeBatch.xs).dataSync();
-          const classSize = TRAINING_DATA_LENGTH / NUM_PITCH_CLASSES;
-          for (let i = 0; i < NUM_PITCH_CLASSES; i++) {
+          const classSize = this.constants.TRAINING_DATA_LENGTH / this.constants.NUM_PITCH_CLASSES;
+          for (let i = 0; i < this.constants.NUM_PITCH_CLASSES; i++) {
             results[this.pitchFromClassNum(i)] = {
               training: this.calcPitchClassEval(i, classSize, values),
             };
@@ -242,8 +273,8 @@
         if (useTestData) {
           await this.xyDatasetTest.forEachAsync(pitchTypeBatch => {
             const values = this.model.predict(pitchTypeBatch.xs).dataSync();
-            const classSize = TEST_DATA_LENGTH / NUM_PITCH_CLASSES;
-            for (let i = 0; i < NUM_PITCH_CLASSES; i++) {
+            const classSize = this.constants.TEST_DATA_LENGTH / this.constants.NUM_PITCH_CLASSES;
+            for (let i = 0; i < this.constants.NUM_PITCH_CLASSES; i++) {
               results[this.pitchFromClassNum(i)].validation =
                 this.calcPitchClassEval(i, classSize, values);
             }
@@ -256,7 +287,7 @@
         this.model.add(tf.layers.dense({units: 250, activation: 'relu', inputShape: [8]}));
         this.model.add(tf.layers.dense({units: 175, activation: 'relu'}));
         this.model.add(tf.layers.dense({units: 150, activation: 'relu'}));
-        this.model.add(tf.layers.dense({units: NUM_PITCH_CLASSES, activation: 'softmax'}));
+        this.model.add(tf.layers.dense({units: this.constants.NUM_PITCH_CLASSES, activation: 'softmax'}));
 
         // console.info(`model ${JSON.stringify(model.outputs[0].shape)}` );
 
@@ -295,33 +326,39 @@
           const yDataset = tf.data.array(yArray);
 
           this.xyDataset = tf.data.zip({xs: xDataset, ys: yDataset})
-            .shuffle(TRAINING_DATA_LENGTH)
+            .shuffle(this.constants.TRAINING_DATA_LENGTH)
             .batch(100);
 
           const xDatasetTest = tf.data.array(xArrayTest);
           const yDatasetTest = tf.data.array(yArrayTest);
 
           this.xyDatasetTest = tf.data.zip({xs: xDatasetTest, ys: yDatasetTest})
-            .batch(TEST_DATA_LENGTH);
+            .batch(this.constants.TEST_DATA_LENGTH);
 
           this.trainingValidationData = tf.data.zip({xs: xDataset, ys: yDataset})
-            .batch(TRAINING_DATA_LENGTH);
+            .batch(this.constants.TRAINING_DATA_LENGTH);
 
           for (let i = 0; i < this.iterations; i++) {
             console.info(`Training iteration : ${i + 1} / ${this.iterations}`);
             await this.model.fitDataset(this.xyDataset, {epochs: this.epochs});
+            this.trainProgress = Math.ceil(((i + 1) / this.iterations * 100));
             const accuracy = await this.evaluateTensorflow(true);
 
             this.accuracyList.push({ key: `${i + 1}`, accuracy });
-            this.trainProgress = Math.ceil(((i + 1) / this.iterations * 100));
 
             if (i + 1 === this.iterations) {
               this.changeStatus('trainComplete');
             }
-            await this.sleep(TIMEOUT_BETWEEN_EPOCHS_MS);
+            await this.sleep(this.constants.TIMEOUT_BETWEEN_EPOCHS_MS);
           }
         }
-      }
+      },
+      normalize(value, min, max) {
+        if (min === undefined || max === undefined) {
+          return value;
+        }
+        return (value - min) / (max - min);
+      },
     }
   }
 </script>

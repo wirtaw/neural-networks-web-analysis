@@ -7,6 +7,7 @@
 <script>
 import 'bulma/css/bulma.css';
 import './assets/css/bulma-steps.css';
+import './assets/css/bulma-switch.min.css';
 
 export default {
   name: 'App'
