@@ -118,9 +118,6 @@
   import * as tf from '@tensorflow/tfjs';
   import { mapState, mapActions } from 'vuex';
 
-  // Constants from training data
-  import '../../config';
-
   export default {
     name: 'LearnForm',
     props: {
@@ -150,6 +147,7 @@
         trainStatus: state => state.learnModel.trainStatus,
         predictData: state => state.learnModel.predictData,
         constants: state => state.learnModel.constants,
+        storedModel: state => state.learnModel.model,
       }),
       showForm() {
         return this.testData && Object.values(this.testData).length > 0
@@ -168,6 +166,8 @@
     watch: {
       predictData(to, from) {
         if (to && this.model) {
+          // console.info(`Watch predictData`);
+          // console.dir(to, {depth: 2});
           const values = [
             this.normalize(to.vx0, this.constants.VX0_MIN, this.constants.VX0_MAX),
             this.normalize(to.vy0, this.constants.VY0_MIN, this.constants.VY0_MAX),
@@ -178,9 +178,12 @@
             this.normalize(to.startSpeed, this.constants.START_SPEED_MIN, this.constants.START_SPEED_MAX),
             Number(to.leftHandedPitcher),
           ];
-
+          // console.dir(values, {depth: 2});
+          // console.dir(this.model, {depth: 2});
+          // console.dir(this.storedModel, {depth: 2});
+          //console.info(`result`);
           const result = this.model.predict(tf.tensor(values, [1, values.length])).arraySync();
-
+          // console.dir(result, {depth: 2});
           let maxValue = 0;
           let predictedPitch = 7;
           for (let i = 0; i < this.constants.NUM_PITCH_CLASSES; i++) {
@@ -202,6 +205,7 @@
         learnModelStart: 'learnModel/learnModelStart',
         changeStatus: 'learnModel/changeStatus',
         changePredictClassName: 'learnModel/changePredictClassName',
+        changeModel: 'learnModel/changeModel',
       }),
       inputName(e) {
         this.changeName(e.target.value);
@@ -348,6 +352,7 @@
 
             if (i + 1 === this.iterations) {
               this.changeStatus('trainComplete');
+              this.changeModel(this.model);
             }
             await this.sleep(this.constants.TIMEOUT_BETWEEN_EPOCHS_MS);
           }

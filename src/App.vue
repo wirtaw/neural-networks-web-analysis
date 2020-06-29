@@ -8,10 +8,6 @@
 </template>
 
 <script>
-  // import 'bulma/css/bulma.css';
-  // import './styles/extensions/steps/bulma-steps.css';
-  // import './styles/extensions/switch/bulma-switch.css';
-  import './styles/extensions/steps/index';
 export default {
   name: 'App'
 }

@@ -16,7 +16,7 @@
               <h4 v-if="trainStatus && trainStatus !== ''">
                 Status - {{ trainStatus }}
               </h4>
-              <ul class="steps">
+              <ul class="steps has-text-center">
                 <li :class="{'steps-segment': true, 'is-active': activeStep === 1}">
                   <span class="steps-marker" />
                   <div class="steps-content is-divider-content">

@@ -1,4 +1,5 @@
 const state = {
+  model: null,
   epochs: 1,
   numTrainingIterations: 10,
   name: 'pitch-1',
@@ -66,6 +67,9 @@ const mutations = {
   setPredictClassName(state, payload) {
     state.predictClassName = `${payload}`
   },
+  setModel(state, payload) {
+    state.model = { ...payload }
+  },
 }
 
 const actions = {
@@ -98,6 +102,9 @@ const actions = {
   },
   changePredictClassName({ commit }, data) {
     commit('setPredictClassName', data)
+  },
+  changeModel({ commit }, data) {
+    commit('setModel', data)
   },
 }
 

@@ -5,12 +5,11 @@
         <div class="column is-12">
           <div class="field">
             Download
-            <button
-              class="button"
-              @click="copy('https://storage.googleapis.com/mlb-pitch-data/pitch_type_training_data.csv')"
-            >
-              pitch_type_training_data.csv
-            </button>
+            <a
+              href="https://storage.googleapis.com/mlb-pitch-data/pitch_type_training_data.csv"
+              class="link primary"
+              target="_blank"
+            >pitch_type_training_data.csv</a>
           </div>
         </div>
       </div>
@@ -60,12 +59,11 @@
         <div class="column is-12">
           <div class="field">
             Download
-            <button
-              class="button"
-              @click="copy('https://storage.googleapis.com/mlb-pitch-data/pitch_type_test_data.csv')"
-            >
-              pitch_type_test_data.csv
-            </button>
+            <a
+              href="https://storage.googleapis.com/mlb-pitch-data/pitch_type_test_data.csv"
+              class="link primary"
+              target="_blank"
+            >pitch_type_test_data.csv</a>
           </div>
         </div>
       </div>
@@ -152,7 +150,7 @@
       trainingJSONData(to, from) {
         this.changePredictClassName('');
         if (to && Object.values(to).length > 0) {
-          this.loadTrainData(this.normaliseData(to));
+          this.loadTrainData(this.normaliseData(to.slice(1, to.length)));
 
           if (this.testData && Object.values(this.testData).length > 0
             && this.learnData && Object.values(this.learnData).length > 0) {
@@ -163,7 +161,7 @@
       testJSONData(to, from) {
         this.changePredictClassName('');
         if (to && Object.values(to).length > 0) {
-          this.loadTestData(this.normaliseData(to));
+          this.loadTestData(this.normaliseData(to.slice(1, to.length)));
 
           if (this.testData && Object.values(this.testData).length > 0
             && this.learnData && Object.values(this.learnData).length > 0) {
