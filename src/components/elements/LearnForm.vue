@@ -148,6 +148,7 @@
         predictData: state => state.learnModel.predictData,
         constants: state => state.learnModel.constants,
         storedModel: state => state.learnModel.model,
+        predictCount: state => state.learnModel.predictCount,
       }),
       showForm() {
         return this.testData && Object.values(this.testData).length > 0
@@ -164,19 +165,19 @@
       }
     },
     watch: {
-      predictData(to, from) {
+      predictCount(to, from) {
         if (to && this.model) {
           // console.info(`Watch predictData`);
           // console.dir(to, {depth: 2});
           const values = [
-            this.normalize(to.vx0, this.constants.VX0_MIN, this.constants.VX0_MAX),
-            this.normalize(to.vy0, this.constants.VY0_MIN, this.constants.VY0_MAX),
-            this.normalize(to.vz0, this.constants.VZ0_MIN, this.constants.VZ0_MAX),
-            this.normalize(to.ax, this.constants.AX_MIN, this.constants.AX_MAX),
-            this.normalize(to.ay, this.constants.AY_MIN, this.constants.AY_MAX),
-            this.normalize(to.az, this.constants.AZ_MIN, this.constants.AZ_MAX),
-            this.normalize(to.startSpeed, this.constants.START_SPEED_MIN, this.constants.START_SPEED_MAX),
-            Number(to.leftHandedPitcher),
+            this.normalize(this.predictData.vx0, this.constants.VX0_MIN, this.constants.VX0_MAX),
+            this.normalize(this.predictData.vy0, this.constants.VY0_MIN, this.constants.VY0_MAX),
+            this.normalize(this.predictData.vz0, this.constants.VZ0_MIN, this.constants.VZ0_MAX),
+            this.normalize(this.predictData.ax, this.constants.AX_MIN, this.constants.AX_MAX),
+            this.normalize(this.predictData.ay, this.constants.AY_MIN, this.constants.AY_MAX),
+            this.normalize(this.predictData.az, this.constants.AZ_MIN, this.constants.AZ_MAX),
+            this.normalize(this.predictData.startSpeed, this.constants.START_SPEED_MIN, this.constants.START_SPEED_MAX),
+            Number(this.predictData.leftHandedPitcher),
           ];
           // console.dir(values, {depth: 2});
           // console.dir(this.model, {depth: 2});

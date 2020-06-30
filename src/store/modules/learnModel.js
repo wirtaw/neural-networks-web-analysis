@@ -9,6 +9,7 @@ const state = {
   testData: null,
   trainStatus: '',
   predictData: null,
+  predictCount: 0,
   predictClassName: '',
   constants: {
     VX0_MIN: -18.885,
@@ -63,6 +64,7 @@ const mutations = {
   },
   setPredictData(state, payload) {
     state.predictData = { ...payload }
+    state.predictCount += 1
   },
   setPredictClassName(state, payload) {
     state.predictClassName = `${payload}`

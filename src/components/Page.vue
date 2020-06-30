@@ -69,9 +69,7 @@
               class="is-medium menu"
               style="width: 200px;"
             >
-              <p class="menu-label title is-5">
-                categories
-              </p>
+              <Metrics />
             </aside>
           </div>
           <div class="column">
@@ -113,13 +111,15 @@
   import LearnForm from './elements/LearnForm.vue';
   import ImportData from './elements/ImportData.vue';
   import PredictForm from './elements/PredictForm.vue';
+  import Metrics from './elements/Metrics.vue';
 
   export default {
     name: 'Page',
     components: {
       LearnForm,
       ImportData,
-      PredictForm
+      PredictForm,
+      Metrics
     },
     props: {
       type: {
