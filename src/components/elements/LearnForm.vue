@@ -115,6 +115,7 @@
 </template>
 
 <script>
+  import { Timer } from 'easytimer.js';
   import * as tf from '@tensorflow/tfjs';
   import { mapState, mapActions } from 'vuex';
 
@@ -182,7 +183,7 @@
           //console.dir(values, {depth: 2});
           // console.dir(this.model, {depth: 2});
           // console.dir(this.storedModel, {depth: 2});
-          //console.info(`result`);
+          // console.info(`result`);
           const result = this.model.predict(tf.tensor(values, [1, values.length])).arraySync();
           //console.dir(result, {depth: 2});
           let maxValue = 0;
@@ -207,6 +208,8 @@
         changeStatus: 'learnModel/changeStatus',
         changePredictClassName: 'learnModel/changePredictClassName',
         changeModel: 'learnModel/changeModel',
+        updateTrainTime: 'metrics/updateTrainTime',
+        updatePredictTime: 'metrics/updatePredictTime',
       }),
       inputName(e) {
         this.changeName(e.target.value);
@@ -264,6 +267,9 @@
         return total / classSize;
       },
       async evaluateTensorflow(useTestData) {
+        const timer = new Timer();
+        timer.start();
+        const start = (new Date).getTime();
         const results = {};
         await this.trainingValidationData.forEachAsync(pitchTypeBatch => {
           const values = this.model.predict(pitchTypeBatch.xs).dataSync();
@@ -285,9 +291,15 @@
             }
           });
         }
+        timer.stop();
+        const diff = (new Date).getTime() - start;
+        this.updatePredictTime({ network: this.netName, time: diff });
         return results;
       },
       async learnTensorflow() {
+        const timer = new Timer();
+        timer.start();
+        const start = (new Date).getTime();
         this.model = tf.sequential();
         this.model.add(tf.layers.dense({units: 250, activation: 'relu', inputShape: [8]}));
         this.model.add(tf.layers.dense({units: 175, activation: 'relu'}));
@@ -354,6 +366,9 @@
             if (i + 1 === this.iterations) {
               this.changeStatus('trainComplete');
               this.changeModel(this.model);
+              timer.stop();
+              const diff = (new Date).getTime() - start;
+              this.updateTrainTime({ network: this.netName, time: diff });
             }
             await this.sleep(this.constants.TIMEOUT_BETWEEN_EPOCHS_MS);
           }
