@@ -115,7 +115,6 @@
 </template>
 
 <script>
-  import { Timer } from 'easytimer.js';
   import * as tf from '@tensorflow/tfjs';
   import { mapState, mapActions } from 'vuex';
 
@@ -267,8 +266,6 @@
         return total / classSize;
       },
       async evaluateTensorflow(useTestData) {
-        const timer = new Timer();
-        timer.start();
         const start = (new Date).getTime();
         const results = {};
         await this.trainingValidationData.forEachAsync(pitchTypeBatch => {
@@ -291,14 +288,19 @@
             }
           });
         }
-        timer.stop();
         const diff = (new Date).getTime() - start;
-        this.updatePredictTime({ network: this.netName, time: diff });
+        this.updatePredictTime({
+          network: this.netName,
+          time: diff,
+          model: {
+            iterations: this.iterations,
+            epochs: this.epochs,
+            name: this.name
+          }
+        });
         return results;
       },
       async learnTensorflow() {
-        const timer = new Timer();
-        timer.start();
         const start = (new Date).getTime();
         this.model = tf.sequential();
         this.model.add(tf.layers.dense({units: 250, activation: 'relu', inputShape: [8]}));
@@ -366,9 +368,16 @@
             if (i + 1 === this.iterations) {
               this.changeStatus('trainComplete');
               this.changeModel(this.model);
-              timer.stop();
               const diff = (new Date).getTime() - start;
-              this.updateTrainTime({ network: this.netName, time: diff });
+              this.updateTrainTime({
+                network: this.netName,
+                time: diff,
+                model: {
+                  iterations: this.iterations,
+                  epochs: this.epochs,
+                  name: this.name
+                }
+              });
             }
             await this.sleep(this.constants.TIMEOUT_BETWEEN_EPOCHS_MS);
           }

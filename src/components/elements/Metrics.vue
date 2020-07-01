@@ -12,19 +12,19 @@
         </p>
         Train:<br>
         <p
-          v-for="(value, name, index) in trainTime"
-          :key="`train-time-${index}`"
+          v-for="(value, name) in trainTime"
+          :key="`${name}-train-time`"
           class="menu-item"
         >
-          {{ name }} - {{ value }} s
+          {{ name }} - {{ value.time }} s
         </p>
         Predict:<br>
         <p
-          v-for="(value, name, index) in predictTime"
-          :key="`predict-time-${index}`"
+          v-for="(value, name) in predictTime"
+          :key="`${name}-predict-time`"
           class="menu-item"
         >
-          {{ name }} - {{ value }} s
+          {{ name }} - {{ value.time }} s
         </p>
       </div>
     </div>
