@@ -293,6 +293,7 @@
           network: this.netName,
           time: diff,
           model: {
+            network: this.netName,
             iterations: this.iterations,
             epochs: this.epochs,
             name: this.name
@@ -373,6 +374,7 @@
                 network: this.netName,
                 time: diff,
                 model: {
+                  network: this.netName,
                   iterations: this.iterations,
                   epochs: this.epochs,
                   name: this.name

@@ -1,6 +1,5 @@
 const state = {
-  trainTime: {},
-  predictTime: {},
+  modelTime: {},
   predictAccuracy: {},
 }
 
@@ -14,17 +13,15 @@ const mutations = {
     const id = `${payload.network}-${payload.model.name}`;
     const setTime = parseFloat(payload.time) / 1000;
 
-    if (!state.trainTime[id]) {
-      state.trainTime[id] = {};
+    if (!state.modelTime[id]) {
+      state.modelTime[id] = {...payload.model};
     }
 
-    if (state.trainTime[id] && state.trainTime[id].time) {
-      time = state.trainTime[id].time;
-    } else {
-      state.trainTime[id].model = {...payload.model};
+    if (state.modelTime[id].learnTime) {
+      time = state.modelTime[id].learnTime;
     }
 
-    state.trainTime[id].time = ((setTime + parseFloat(time)) / 2).toFixed(2);
+    state.modelTime[id].learnTime = (time > 0) ? ((setTime + parseFloat(time)) / 2).toFixed(2) : setTime.toFixed(2);
     // state.trainTime.push({ id: state.trainTime.length + 1, value: parseFloat(payload).toFixed(2)})
   },
   setPredictTime (state, payload) {
@@ -32,18 +29,15 @@ const mutations = {
     const id = `${payload.network}-${payload.model.name}`;
     const setTime = parseFloat(payload.time) / 1000;
 
-    if (!state.predictTime[id]) {
-      state.predictTime[id] = {};
+    if (!state.modelTime[id]) {
+      state.modelTime[id] = {...payload.model};
     }
 
-    if (state.predictTime[id] && state.predictTime[id].time) {
-      time = state.predictTime[id].time;
-    } else {
-      state.predictTime[id].model = {...payload.model};
+    if (state.modelTime[id].predictTime) {
+      time = state.modelTime[id].predictTime;
     }
 
-    state.predictTime[id].time = ((setTime + parseFloat(time)) / 2).toFixed(2);
-    // state.predictTime.push({ id: state.predictTime.length + 1, value: parseFloat(payload).toFixed(2)})
+    state.modelTime[id].predictTime = (time > 0) ? ((setTime + parseFloat(time)) / 2).toFixed(2) : setTime.toFixed(2);
   },
 }
 

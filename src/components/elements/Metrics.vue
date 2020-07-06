@@ -10,21 +10,14 @@
         <p class="menu-label title is-5">
           Times:
         </p>
-        Train:<br>
         <p
-          v-for="(value, name) in trainTime"
+          v-for="(value, name) in modelTime"
           :key="`${name}-train-time`"
           class="menu-item"
         >
-          {{ name }} - {{ value.time }} s
-        </p>
-        Predict:<br>
-        <p
-          v-for="(value, name) in predictTime"
-          :key="`${name}-predict-time`"
-          class="menu-item"
-        >
-          {{ name }} - {{ value.time }} s
+          <router-link :to="`/results`">
+            {{ name }}
+          </router-link>
         </p>
       </div>
     </div>
@@ -38,8 +31,7 @@
     name: 'Metrics',
     computed: {
       ...mapState({
-        trainTime: state => state.metrics.trainTime,
-        predictTime: state => state.metrics.predictTime,
+        modelTime: state => state.metrics.modelTime,
       }),
     },
   }

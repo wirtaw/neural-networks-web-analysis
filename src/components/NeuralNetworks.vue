@@ -42,10 +42,17 @@
         </router-link>
       </li>
     </ul>
+    <p v-if="Object.keys(modelTime).length > 0">
+      <router-link to="/results">
+        Results
+      </router-link>
+    </p>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
   name: 'NeuralNetworks',
   props: {
@@ -55,6 +62,9 @@ export default {
     },
   },
   computed: {
+    ...mapState({
+      modelTime: state => state.metrics.modelTime,
+    }),
   },
   methods: {
     goBack() {
