@@ -230,7 +230,11 @@
       }),
       makePredict() {
         this.changeStatus('predict');
-        this.predictData(this.defaultData);
+        const res = {};
+        for(const key in this.defaultData) {
+          res[key] = parseFloat(this.defaultData[key]);
+        }
+        this.predictData(res);
       }
     }
   }

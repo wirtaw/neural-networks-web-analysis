@@ -38,6 +38,8 @@
                   <th><abbr title="PredictTime">Predict Time (s)</abbr></th>
                   <th><abbr title="Browser">Browser</abbr></th>
                   <th><abbr title="JSEngine">JavaSrcipt engine</abbr></th>
+                  <th><abbr title="JSEngine">OS</abbr></th>
+                  <th><abbr title="JSEngine">CPU</abbr></th>
                 </tr>
               </thead>
               <tfoot>
@@ -50,6 +52,8 @@
                   <th><abbr title="PredictTime">Predict Time (s)</abbr></th>
                   <th><abbr title="Browser">Browser</abbr></th>
                   <th><abbr title="JSEngine">JavaSrcipt engine</abbr></th>
+                  <th><abbr title="JSEngine">OS</abbr></th>
+                  <th><abbr title="JSEngine">CPU</abbr></th>
                 </tr>
               </tfoot>
               <tbody>
@@ -63,8 +67,26 @@
                   <td>{{ value.iterations }}</td>
                   <td>{{ value.learnTime }} s</td>
                   <td>{{ value.predictTime }} s</td>
-                  <td />
-                  <td />
+                  <td>
+                    <p v-if="ua && ua.browser">
+                      {{ ua.browser.name }}
+                    </p>
+                  </td>
+                  <td>
+                    <p v-if="ua && ua.engine">
+                      {{ ua.engine.name }} {{ ua.engine.version }}
+                    </p>
+                  </td>
+                  <td>
+                    <p v-if="ua && ua.os">
+                      {{ ua.os.name }} {{ ua.os.version }}
+                    </p>
+                  </td>
+                  <td>
+                    <p v-if="ua && ua.cpu">
+                      {{ ua.cpu.architecture }}
+                    </p>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -77,16 +99,23 @@
 
 <script>
   import { mapState } from 'vuex';
+  import parser from 'ua-parser-js';
 
   export default {
     name: 'Results',
+    data () {
+      return {
+        ua: null,
+        activeStep: 1,
+      }
+    },
     computed: {
       ...mapState({
         modelTime: state => state.metrics.modelTime,
       }),
     },
     mounted() {
-      // this.changeResultName(this.$route.params.resultname);
+      this.ua = (navigator.userAgent) ? parser(navigator.userAgent) : {};
     },
   }
 </script>
