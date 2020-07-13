@@ -148,7 +148,6 @@
         predictData: state => state.learnModel.predictData,
         constants: state => state.learnModel.constants,
         storedModel: state => state.learnModel.model,
-        predictCount: state => state.learnModel.predictCount,
       }),
       showForm() {
         return this.testData && Object.values(this.testData).length > 0
@@ -165,38 +164,41 @@
       }
     },
     watch: {
-      predictCount(to, from) {
-        if (to && this.model) {
-          // console.info(`Watch predictData`);
-          // console.dir(to, {depth: 2});
-          const values = [
-            this.normalize(parseFloat(this.predictData.vx0), this.constants.VX0_MIN, this.constants.VX0_MAX),
-            this.normalize(parseFloat(this.predictData.vy0), this.constants.VY0_MIN, this.constants.VY0_MAX),
-            this.normalize(parseFloat(this.predictData.vz0), this.constants.VZ0_MIN, this.constants.VZ0_MAX),
-            this.normalize(parseFloat(this.predictData.ax), this.constants.AX_MIN, this.constants.AX_MAX),
-            this.normalize(parseFloat(this.predictData.ay), this.constants.AY_MIN, this.constants.AY_MAX),
-            this.normalize(parseFloat(this.predictData.az), this.constants.AZ_MIN, this.constants.AZ_MAX),
-            this.normalize(parseFloat(this.predictData.startSpeed), this.constants.START_SPEED_MIN, this.constants.START_SPEED_MAX),
-            Number(this.predictData.leftHandedPitcher),
-          ];
-          //console.dir(values, {depth: 2});
-          // console.dir(this.model, {depth: 2});
-          // console.dir(this.storedModel, {depth: 2});
-          // console.info(`result`);
-          const result = this.model.predict(tf.tensor(values, [1, values.length])).arraySync();
-          //console.dir(result, {depth: 2});
-          let maxValue = 0;
-          let predictedPitch = 7;
-          for (let i = 0; i < this.constants.NUM_PITCH_CLASSES; i++) {
-            if (result[0][i] > maxValue) {
-              predictedPitch = i;
-              maxValue = result[0][i];
+      predictData: {
+        handler(val) {
+          if (this.storedModel) {
+            // sconsole.info(`Watch predictData`);
+            // console.dir(to, {depth: 2});
+            const values = [
+              this.normalize(parseFloat(val.vx0), this.constants.VX0_MIN, this.constants.VX0_MAX),
+              this.normalize(parseFloat(val.vy0), this.constants.VY0_MIN, this.constants.VY0_MAX),
+              this.normalize(parseFloat(val.vz0), this.constants.VZ0_MIN, this.constants.VZ0_MAX),
+              this.normalize(parseFloat(val.ax), this.constants.AX_MIN, this.constants.AX_MAX),
+              this.normalize(parseFloat(val.ay), this.constants.AY_MIN, this.constants.AY_MAX),
+              this.normalize(parseFloat(val.az), this.constants.AZ_MIN, this.constants.AZ_MAX),
+              this.normalize(parseFloat(val.startSpeed), this.constants.START_SPEED_MIN, this.constants.START_SPEED_MAX),
+              Number(val.leftHandedPitcher),
+            ];
+            // console.dir(values, {depth: 2});
+            // console.dir(this.model, {depth: 2});
+            // console.dir(this.storedModel, {depth: 2});
+            // console.info(`result`);
+            const result = this.storedModel.predict(tf.tensor(values, [1, values.length])).arraySync();
+            // console.dir(result, {depth: 2});
+            let maxValue = 0;
+            let predictedPitch = 7;
+            for (let i = 0; i < this.constants.NUM_PITCH_CLASSES; i++) {
+              if (result[0][i] > maxValue) {
+                predictedPitch = i;
+                maxValue = result[0][i];
+              }
             }
+            // console.dir(predictedPitch, {depth: 2});
+            this.changePredictClassName(this.pitchFromClassNum(predictedPitch));
           }
-
-          this.changePredictClassName(this.pitchFromClassNum(predictedPitch));
-        }
-      }
+        },
+        deep: true,
+      },
     },
     methods: {
       ...mapActions({
