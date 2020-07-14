@@ -108,10 +108,10 @@
 
 <script>
   import { mapState, mapActions } from 'vuex';
-  import LearnForm from './elements/LearnForm.vue';
-  import ImportData from './elements/ImportData.vue';
-  import PredictForm from './elements/PredictForm.vue';
-  import Metrics from './elements/Metrics.vue';
+  import LearnForm from '@/components/elements/LearnForm.vue';
+  import ImportData from '@/components/elements/ImportData.vue';
+  import PredictForm from '@/components/elements/PredictForm.vue';
+  import Metrics from '@/components/elements/Metrics.vue';
 
   export default {
     name: 'Page',

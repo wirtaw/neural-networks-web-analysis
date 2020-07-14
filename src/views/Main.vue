@@ -14,7 +14,7 @@
 </template>
 
 <script>
-  import NeuralNetworks from './NeuralNetworks.vue';
+  import NeuralNetworks from '@/components/NeuralNetworks.vue';
   export default {
     name: 'Main',
     components: {

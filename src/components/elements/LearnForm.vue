@@ -167,8 +167,8 @@
       predictData: {
         handler(val) {
           if (this.storedModel) {
-            // sconsole.info(`Watch predictData`);
-            // console.dir(to, {depth: 2});
+             console.info(`Watch predictData`);
+            // console.dir(val, {depth: 2});
             const values = [
               this.normalize(parseFloat(val.vx0), this.constants.VX0_MIN, this.constants.VX0_MAX),
               this.normalize(parseFloat(val.vy0), this.constants.VY0_MIN, this.constants.VY0_MAX),
@@ -179,12 +179,12 @@
               this.normalize(parseFloat(val.startSpeed), this.constants.START_SPEED_MIN, this.constants.START_SPEED_MAX),
               Number(val.leftHandedPitcher),
             ];
-            // console.dir(values, {depth: 2});
+             console.dir(values, {depth: 2});
             // console.dir(this.model, {depth: 2});
             // console.dir(this.storedModel, {depth: 2});
-            // console.info(`result`);
+            console.info(`result`);
             const result = this.storedModel.predict(tf.tensor(values, [1, values.length])).arraySync();
-            // console.dir(result, {depth: 2});
+            console.dir(result, {depth: 2});
             let maxValue = 0;
             let predictedPitch = 7;
             for (let i = 0; i < this.constants.NUM_PITCH_CLASSES; i++) {
@@ -193,7 +193,7 @@
                 maxValue = result[0][i];
               }
             }
-            // console.dir(predictedPitch, {depth: 2});
+            console.info('', predictedPitch);
             this.changePredictClassName(this.pitchFromClassNum(predictedPitch));
           }
         },

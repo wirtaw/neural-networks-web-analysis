@@ -61,7 +61,11 @@
                   v-for="(value, name) in modelTime"
                   :key="`${name}-train-time`"
                 >
-                  <th>{{ value.network }}</th>
+                  <th>
+                    <router-link :to="`/results/${value.network}`">
+                      {{ value.network }}
+                    </router-link>
+                  </th>
                   <th>{{ value.name }}</th>
                   <td>{{ value.epochs }}</td>
                   <td>{{ value.iterations }}</td>
