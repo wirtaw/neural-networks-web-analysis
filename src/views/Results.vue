@@ -62,7 +62,7 @@
                   :key="`${name}-train-time`"
                 >
                   <th>
-                    <router-link :to="`/results/${value.network}`">
+                    <router-link :to="`/page/${value.network}`">
                       {{ value.network }}
                     </router-link>
                   </th>
@@ -87,13 +87,31 @@
                     </p>
                   </td>
                   <td>
-                    <p v-if="ua && ua.cpu">
-                      {{ ua.cpu.architecture }}
+                    <p v-if="cpu">
+                      {{ cpu }}
                     </p>
                   </td>
                 </tr>
               </tbody>
             </table>
+          </div>
+        </div>
+        <div class="columns">
+          <div class="column">
+            <div class="field">
+              <label class="label">cpu info</label>
+              <div class="control">
+                <input
+                  id="cpu-info"
+                  v-model="cpuInfo"
+                  :class="{ 'input': true, 'is-danger': errors['cpuInfo'], 'is-success': !errors['cpuInfo'] }"
+                  type="text"
+                  name="cpu-info"
+                  placeholder="Additional CPU info"
+                >
+              </div>
+              <p :class="{ 'help': true, 'is-danger': errors['cpuInfo'] }" />
+            </div>
           </div>
         </div>
       </div>
@@ -102,7 +120,7 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex';
+  import {mapActions, mapState} from 'vuex';
   import parser from 'ua-parser-js';
 
   export default {
@@ -111,15 +129,33 @@
       return {
         ua: null,
         activeStep: 1,
+        errors: {},
+        cpuInfo: ''
       }
     },
     computed: {
       ...mapState({
         modelTime: state => state.metrics.modelTime,
+        cpu: state => state.metrics.cpu,
       }),
     },
+    watch: {
+      cpuInfo: {
+        handler(val) {
+          if (val) {
+            this.updateCPU(val);
+          }
+        },
+        deep: true,
+      }
+    },
     mounted() {
+      this.cpuInfo = this.cpu ? this.cpu : '';
       this.ua = (navigator.userAgent) ? parser(navigator.userAgent) : {};
+    },methods: {
+      ...mapActions({
+        updateCPU: 'metrics/updateCPU',
+      }),
     },
   }
 </script>

@@ -2,7 +2,7 @@
   <div class="container">
     <h1>{{ msg }}</h1>
     <p>
-      Blog post about - <a href="https://blog.poplauki.eu/ru/?p=779">link</a>
+      Blog post about - <a href="https://blog.poplauki.eu/en/development-/neural-network-js-libraries-comparison/">EN</a> <a href="https://blog.poplauki.eu/ru/?p=779">RU</a>
     </p>
     <h3>List of the neural network libraries</h3>
     <ul>

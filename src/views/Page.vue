@@ -69,7 +69,7 @@
               class="is-medium menu"
               style="width: 200px;"
             >
-              <Metrics />
+              <Menu />
             </aside>
           </div>
           <div class="column">
@@ -111,7 +111,7 @@
   import LearnForm from '@/components/elements/LearnForm.vue';
   import ImportData from '@/components/elements/ImportData.vue';
   import PredictForm from '@/components/elements/PredictForm.vue';
-  import Metrics from '@/components/elements/Metrics.vue';
+  import Menu from '@/components/elements/Menu.vue';
 
   export default {
     name: 'Page',
@@ -119,7 +119,7 @@
       LearnForm,
       ImportData,
       PredictForm,
-      Metrics
+      Menu
     },
     props: {
       type: {
@@ -169,16 +169,22 @@
     },
     watch: {
       trainStatus(to, from) {
-        if (to && to === 'importData') {
-          this.activeStep = 2;
-        } else if (to && to === 'train') {
-          this.activeStep = 3;
-        } else if (to && to === 'trainComplete') {
-          this.activeStep = 4;
-        } else if (to && to === 'predict') {
-          this.activeStep = 5;
-        } else {
-          this.activeStep = 1;
+        switch(to){
+          case 'importData':
+            this.activeStep = 2;
+            break;
+          case 'train':
+            this.activeStep = 3;
+            break;
+          case 'trainComplete':
+            this.activeStep = 4;
+            break;
+          case 'predict':
+            this.activeStep = 5;
+            break;
+          default:
+            this.activeStep = 1;
+            break;
         }
       }
     },

@@ -1,6 +1,7 @@
 const state = {
   modelTime: {},
   predictAccuracy: {},
+  cpu: 'Intel(R) Core(TM) i7-6700HQ CPU @ 2.60GHz ; 8 CPU(s)'
 }
 
 const getters = {
@@ -39,6 +40,9 @@ const mutations = {
 
     state.modelTime[id].predictTime = (time > 0) ? ((setTime + parseFloat(time)) / 2).toFixed(2) : setTime.toFixed(2);
   },
+  setCPU (state, payload) {
+    state.cpu = `${payload}`;
+  }
 }
 
 const actions = {
@@ -47,6 +51,9 @@ const actions = {
   },
   updatePredictTime ({ commit }, data) {
     commit('setPredictTime', data)
+  },
+  updateCPU ({ commit }, data) {
+    commit('setCPU', data)
   },
 }
 

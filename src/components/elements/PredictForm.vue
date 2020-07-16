@@ -11,7 +11,6 @@
         >
           <form
             class="form"
-            @submit="checkForm"
           >
             <p> Sensor data: <span id="predictSample" /> </p>
             <div class="field is-horizontal">
