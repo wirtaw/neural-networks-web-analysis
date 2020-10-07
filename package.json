@@ -9,7 +9,7 @@
     "lint:fix": "eslint --ext .js,.vue src"
   },
   "dependencies": {
-    "@tensorflow/tfjs": "2.4.0",
+    "@tensorflow/tfjs": "2.5.0",
     "bulma": "^0.9.0",
     "core-js": "^3.6.5",
     "date-and-time": "0.14.1",
