@@ -33,9 +33,20 @@
           <vue-csv-import
             v-if="!learnData || Object.values(learnData).length === 0"
             v-model="trainingJSONData"
-            :fields="fieldForCSV"
+            url="https://storage.googleapis.com/mlb-pitch-data/pitch_type_training_data.csv"
+            :map-fields="Object.keys(fieldForCSV)"
           >
-
+            <template #hasHeaders="{headers, toggle}">
+              <label>
+                <input
+                  id="hasHeaders"
+                  type="checkbox"
+                  :value="headers"
+                  @change="toggle"
+                >
+                Headers?
+              </label>
+            </template>
           </vue-csv-import>
         </div>
       </div>
@@ -76,8 +87,20 @@
           <vue-csv-import
             v-if="!testData || Object.values(testData).length === 0"
             v-model="testJSONData"
-            :fields="fieldForCSV"
+            url="https://storage.googleapis.com/mlb-pitch-data/pitch_type_test_data.csv"
+            :map-fields="Object.keys(fieldForCSV)"
           >
+            <template #hasHeaders="{headers, toggle}">
+              <label>
+                <input
+                  id="hasHeaders"
+                  type="checkbox"
+                  :value="headers"
+                  @change="toggle"
+                >
+                Headers?
+              </label>
+            </template>
           </vue-csv-import>
         </div>
       </div>
