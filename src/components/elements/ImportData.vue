@@ -34,7 +34,7 @@
             v-if="!learnData || Object.values(learnData).length === 0"
             v-model="trainingJSONData"
             url="https://storage.googleapis.com/mlb-pitch-data/pitch_type_training_data.csv"
-            :map-fields="['vx0','vy0','vz0','ax','ay','az','startSpeed','leftHandedPitcher','pitchCode']"
+            :map-fields="Object.keys(fieldForCSV)"
           >
             <template #hasHeaders="{headers, toggle}">
               <label>
@@ -88,7 +88,7 @@
             v-if="!testData || Object.values(testData).length === 0"
             v-model="testJSONData"
             url="https://storage.googleapis.com/mlb-pitch-data/pitch_type_test_data.csv"
-            :map-fields="['vx0','vy0','vz0','ax','ay','az','startSpeed','leftHandedPitcher','pitchCode']"
+            :map-fields="Object.keys(fieldForCSV)"
           >
             <template #hasHeaders="{headers, toggle}">
               <label>
@@ -117,8 +117,20 @@
     components: { VueCsvImport },
     data () {
       return {
-        trainingJSONData: null,
-        testJSONData: null
+        trainingJSONData: [],
+        testJSONData: [],
+        // 'vx0','vy0','vz0','ax','ay','az','startSpeed','leftHandedPitcher','pitchCode'
+        fieldForCSV: {
+          vx0: {required: true, label: 'vx0'},
+          vy0: {required: true, label: 'vy0'},
+          vz0: {required: true, label: 'vz0'},
+          ax: {required: true, label: 'ax'},
+          ay: {required: true, label: 'ay'},
+          az: {required: true, label: 'az'},
+          startSpeed: {required: true, label: 'startSpeed'},
+          leftHandedPitcher: {required: true, label: 'leftHandedPitcher'},
+          pitchCode: {required: true, label: 'pitchCode'}
+        }
       }
     },
     computed: {
