@@ -9,24 +9,24 @@
     "lint:fix": "eslint --ext .js,.vue src"
   },
   "dependencies": {
-    "@tensorflow/tfjs": "^2.7.0",
-    "bulma": "^0.9.1",
+    "@tensorflow/tfjs": "^3.1.0",
+    "bulma": "^0.9.2",
     "core-js": "^3.8.1",
     "date-and-time": "0.14.2",
-    "date-fns": "^2.14.0",
+    "date-fns": "^2.17.0",
     "eslint-config-vue": "^2.0.2",
     "node-sass": "^5.0.0",
     "sass-loader": "^10.1.0",
-    "ua-parser-js": "^0.7.23",
+    "ua-parser-js": "^0.7.24",
     "vue": "^2.6.11",
     "vue-csv-import": "3.3.0",
-    "vue-router": "^3.4.9",
-    "vuex": "^3.6.0"
+    "vue-router": "^3.5.1",
+    "vuex": "^3.6.2"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.5.8",
-    "@vue/cli-plugin-eslint": "^4.5.8",
-    "@vue/cli-service": "^4.5.8",
+    "@vue/cli-plugin-babel": "^4.5.11",
+    "@vue/cli-plugin-eslint": "^4.5.11",
+    "@vue/cli-service": "^4.5.11",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.13.0",
     "eslint-plugin-vue": "^7.1.0",
