@@ -121,7 +121,7 @@
 
 <script>
   import {mapActions, mapState} from 'vuex';
-  import parser from 'ua-parser-js';
+  import Bowser from "bowser";
 
   export default {
     name: 'Results',
@@ -151,7 +151,9 @@
     },
     mounted() {
       this.cpuInfo = this.cpu ? this.cpu : '';
-      this.ua = (navigator.userAgent) ? parser(navigator.userAgent) : {};
+      const browser = Bowser.getParser(window.navigator.userAgent);
+      const ua = browser.getBrowser();
+      this.ua = (ua) ? ua : {};
     },methods: {
       ...mapActions({
         updateCPU: 'metrics/updateCPU',
