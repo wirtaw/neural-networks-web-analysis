@@ -1,5 +1,8 @@
 # neural-networks-web-analysis
 
+Node version 16.14.2
+NPM version 8.13.1
+
 ## Project setup
 ```
 yarn install
