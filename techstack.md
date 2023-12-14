@@ -1,8 +1,10 @@
 <!--
---- Readme.md Snippet without images Start ---
+&lt;--- Readme.md Snippet without images Start ---&gt;
 ## Tech Stack
 wirtaw/neural-networks-web-analysis is built on the following main stack:
+
 - [Node.js](http://nodejs.org/) – Frameworks (Full Stack)
+- [Sass](http://sass-lang.com/) – CSS Pre-processors / Extensions
 - [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) – Languages
 - [Babel](http://babeljs.io/) – JavaScript Compilers
 - [ESLint](http://eslint.org/) – Code Review
@@ -13,12 +15,15 @@ wirtaw/neural-networks-web-analysis is built on the following main stack:
 - [date-fns](https://date-fns.org/) – Javascript Utilities & Libraries
 
 Full tech stack [here](/techstack.md)
---- Readme.md Snippet without images End ---
 
---- Readme.md Snippet with images Start ---
+&lt;--- Readme.md Snippet without images End ---&gt;
+
+&lt;--- Readme.md Snippet with images Start ---&gt;
 ## Tech Stack
 wirtaw/neural-networks-web-analysis is built on the following main stack:
+
 - <img width='25' height='25' src='https://img.stackshare.io/service/1011/n1JRsFeB_400x400.png' alt='Node.js'/> [Node.js](http://nodejs.org/) – Frameworks (Full Stack)
+- <img width='25' height='25' src='https://img.stackshare.io/service/1171/jCR2zNJV.png' alt='Sass'/> [Sass](http://sass-lang.com/) – CSS Pre-processors / Extensions
 - <img width='25' height='25' src='https://img.stackshare.io/service/1209/javascript.jpeg' alt='JavaScript'/> [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) – Languages
 - <img width='25' height='25' src='https://img.stackshare.io/service/2739/-1wfGjNw.png' alt='Babel'/> [Babel](http://babeljs.io/) – JavaScript Compilers
 - <img width='25' height='25' src='https://img.stackshare.io/service/3337/Q4L7Jncy.jpg' alt='ESLint'/> [ESLint](http://eslint.org/) – Code Review
@@ -29,14 +34,15 @@ wirtaw/neural-networks-web-analysis is built on the following main stack:
 - <img width='25' height='25' src='https://img.stackshare.io/service/10865/default_5551fb8853689f607a2bc0d5a09355d5a3d52bf0.png' alt='date-fns'/> [date-fns](https://date-fns.org/) – Javascript Utilities & Libraries
 
 Full tech stack [here](/techstack.md)
---- Readme.md Snippet with images End ---
+
+&lt;--- Readme.md Snippet with images End ---&gt;
 -->
 <div align="center">
 
 # Tech Stack File
 ![](https://img.stackshare.io/repo.svg "repo") [wirtaw/neural-networks-web-analysis](https://github.com/wirtaw/neural-networks-web-analysis)![](https://img.stackshare.io/public_badge.svg "public")
 <br/><br/>
-|26<br/>Tools used|11/11/23 <br/>Report generated|
+|27<br/>Tools used|12/14/23 <br/>Report generated|
 |------|------|
 </div>
 
@@ -53,7 +59,7 @@ Full tech stack [here](/techstack.md)
 </tr>
 </table>
 
-## <img src='https://img.stackshare.io/frameworks.svg'/> Frameworks (4)
+## <img src='https://img.stackshare.io/frameworks.svg'/> Frameworks (5)
 <table><tr>
   <td align='center'>
   <img width='36' height='36' src='https://img.stackshare.io/service/5204/bulma-logo.png' alt='Bulma'>
@@ -67,6 +73,14 @@ Full tech stack [here](/techstack.md)
   <img width='36' height='36' src='https://img.stackshare.io/service/1011/n1JRsFeB_400x400.png' alt='Node.js'>
   <br>
   <sub><a href="http://nodejs.org/">Node.js</a></sub>
+  <br>
+  <sub></sub>
+</td>
+
+<td align='center'>
+  <img width='36' height='36' src='https://img.stackshare.io/service/1171/jCR2zNJV.png' alt='Sass'>
+  <br>
+  <sub><a href="http://sass-lang.com/">Sass</a></sub>
   <br>
   <sub></sub>
 </td>
@@ -127,9 +141,17 @@ Full tech stack [here](/techstack.md)
 </tr>
 </table>
 
-## Other (2)
+## Other (3)
 <table><tr>
   <td align='center'>
+  <img width='36' height='36' src='https://img.stackshare.io/service/2270/no-img-open-source.png' alt='HTML'>
+  <br>
+  <sub><a href="http://">HTML</a></sub>
+  <br>
+  <sub></sub>
+</td>
+
+<td align='center'>
   <img width='36' height='36' src='https://img.stackshare.io/service/4717/FtFnqC38_400x400.png' alt='TensorFlow'>
   <br>
   <sub><a href="https://www.tensorflow.org">TensorFlow</a></sub>
@@ -149,9 +171,9 @@ Full tech stack [here](/techstack.md)
 </table>
 
 
-## <img src='https://img.stackshare.io/group.svg' /> Open source packages (15)</h2>
+## <img src='https://img.stackshare.io/group.svg' /> Open source packages (14)</h2>
 
-## <img width='24' height='24' src='https://img.stackshare.io/service/1120/lejvzrnlpb308aftn31u.png'/> npm (15)
+## <img width='24' height='24' src='https://img.stackshare.io/service/1120/lejvzrnlpb308aftn31u.png'/> npm (14)
 
 |NAME|VERSION|LAST UPDATED|LAST UPDATED BY|LICENSE|VULNERABILITIES|
 |:------|:------|:------|:------|:------|:------|
@@ -165,7 +187,6 @@ Full tech stack [here](/techstack.md)
 |[eslint-plugin-vue](https://www.npmjs.com/eslint-plugin-vue)|v7.20.0|01/19/23|Poplavskij Vladimir |MIT|N/A|
 |[fibers](https://www.npmjs.com/fibers)|v4.0.3|03/12/22|Poplavskij Vladimir |MIT|N/A|
 |[node-fetch](https://www.npmjs.com/node-fetch)|v2.6.8|05/23/23|Poplavskij Vladimir |MIT|N/A|
-|[sass](https://www.npmjs.com/sass)|v1.57.1|01/19/23|Poplavskij Vladimir |MIT|N/A|
 |[sass-loader](https://www.npmjs.com/sass-loader)|v13.2.0|01/19/23|Poplavskij Vladimir |MIT|N/A|
 |[vue](https://www.npmjs.com/vue)|v2.7.14|06/02/20|Poplavskij Vladimir |MIT|N/A|
 |[vue-router](https://www.npmjs.com/vue-router)|v3.6.5|01/19/23|Poplavskij Vladimir |MIT|N/A|
@@ -174,4 +195,4 @@ Full tech stack [here](/techstack.md)
 <br/>
 <div align='center'>
 
-Generated via [Stack File](https://github.com/apps/stack-file)
+Generated via [Stack File](https://github.com/marketplace/stack-file)
