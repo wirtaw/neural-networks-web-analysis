@@ -3,15 +3,15 @@
 ## Tech Stack
 wirtaw/neural-networks-web-analysis is built on the following main stack:
 
+- [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) – Languages
+- [Bulma](http://bulma.io/) – Front-End Frameworks
 - [Node.js](http://nodejs.org/) – Frameworks (Full Stack)
 - [Sass](http://sass-lang.com/) – CSS Pre-processors / Extensions
-- [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) – Languages
+- [Vue.js](http://vuejs.org/) – Javascript UI Libraries
+- [vuex](https://vuex.vuejs.org) – State Management Library
 - [Babel](http://babeljs.io/) – JavaScript Compilers
 - [ESLint](http://eslint.org/) – Code Review
-- [Vue.js](http://vuejs.org/) – Javascript UI Libraries
 - [TensorFlow](https://www.tensorflow.org) – Machine Learning Tools
-- [Bulma](http://bulma.io/) – Front-End Frameworks
-- [vuex](https://vuex.vuejs.org) – State Management Library
 - [date-fns](https://date-fns.org/) – Javascript Utilities & Libraries
 
 Full tech stack [here](/techstack.md)
@@ -22,15 +22,15 @@ Full tech stack [here](/techstack.md)
 ## Tech Stack
 wirtaw/neural-networks-web-analysis is built on the following main stack:
 
+- <img width='25' height='25' src='https://img.stackshare.io/service/1209/javascript.jpeg' alt='JavaScript'/> [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) – Languages
+- <img width='25' height='25' src='https://img.stackshare.io/service/5204/bulma-logo.png' alt='Bulma'/> [Bulma](http://bulma.io/) – Front-End Frameworks
 - <img width='25' height='25' src='https://img.stackshare.io/service/1011/n1JRsFeB_400x400.png' alt='Node.js'/> [Node.js](http://nodejs.org/) – Frameworks (Full Stack)
 - <img width='25' height='25' src='https://img.stackshare.io/service/1171/jCR2zNJV.png' alt='Sass'/> [Sass](http://sass-lang.com/) – CSS Pre-processors / Extensions
-- <img width='25' height='25' src='https://img.stackshare.io/service/1209/javascript.jpeg' alt='JavaScript'/> [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) – Languages
+- <img width='25' height='25' src='https://img.stackshare.io/service/3837/paeckCWC.png' alt='Vue.js'/> [Vue.js](http://vuejs.org/) – Javascript UI Libraries
+- <img width='25' height='25' src='https://img.stackshare.io/service/6705/6128107.png' alt='vuex'/> [vuex](https://vuex.vuejs.org) – State Management Library
 - <img width='25' height='25' src='https://img.stackshare.io/service/2739/-1wfGjNw.png' alt='Babel'/> [Babel](http://babeljs.io/) – JavaScript Compilers
 - <img width='25' height='25' src='https://img.stackshare.io/service/3337/Q4L7Jncy.jpg' alt='ESLint'/> [ESLint](http://eslint.org/) – Code Review
-- <img width='25' height='25' src='https://img.stackshare.io/service/3837/paeckCWC.png' alt='Vue.js'/> [Vue.js](http://vuejs.org/) – Javascript UI Libraries
 - <img width='25' height='25' src='https://img.stackshare.io/service/4717/FtFnqC38_400x400.png' alt='TensorFlow'/> [TensorFlow](https://www.tensorflow.org) – Machine Learning Tools
-- <img width='25' height='25' src='https://img.stackshare.io/service/5204/bulma-logo.png' alt='Bulma'/> [Bulma](http://bulma.io/) – Front-End Frameworks
-- <img width='25' height='25' src='https://img.stackshare.io/service/6705/6128107.png' alt='vuex'/> [vuex](https://vuex.vuejs.org) – State Management Library
 - <img width='25' height='25' src='https://img.stackshare.io/service/10865/default_5551fb8853689f607a2bc0d5a09355d5a3d52bf0.png' alt='date-fns'/> [date-fns](https://date-fns.org/) – Javascript Utilities & Libraries
 
 Full tech stack [here](/techstack.md)
@@ -42,7 +42,7 @@ Full tech stack [here](/techstack.md)
 # Tech Stack File
 ![](https://img.stackshare.io/repo.svg "repo") [wirtaw/neural-networks-web-analysis](https://github.com/wirtaw/neural-networks-web-analysis)![](https://img.stackshare.io/public_badge.svg "public")
 <br/><br/>
-|27<br/>Tools used|01/05/24 <br/>Report generated|
+|27<br/>Tools used|02/29/24 <br/>Report generated|
 |------|------|
 </div>
 
