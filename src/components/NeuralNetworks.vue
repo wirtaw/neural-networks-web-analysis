@@ -50,7 +50,7 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import { mapState } from 'vuex';
 
 export default {

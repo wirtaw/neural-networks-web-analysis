@@ -119,7 +119,7 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
   import {mapActions, mapState} from 'vuex';
   import Bowser from "bowser";
 

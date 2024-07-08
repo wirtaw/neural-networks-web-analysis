@@ -108,7 +108,7 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
   import { mapState, mapActions } from 'vuex';
   import { VueCsvImport } from 'vue-csv-import';
 

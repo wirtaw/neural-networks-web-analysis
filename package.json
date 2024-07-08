@@ -2,41 +2,37 @@
   "name": "neural-networks-web-analysis",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
-    "lint:fix": "eslint --ext .js,.vue src"
+    "dev": "vite",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview"
   },
   "engines": {
-    "node": "v16.17.0",
-    "npm": "9.4.1"
+    "node": "v20.14.0",
+    "npm": "10.7.0"
   },
   "dependencies": {
     "@tensorflow/tfjs": "^3.21.0",
     "bowser": "^2.11.0",
     "bulma": "^0.9.4",
-    "core-js": "^3.27.2",
     "date-and-time": "2.0.1",
     "date-fns": "^2.29.3",
-    "eslint-config-vue": "^2.0.2",
-    "fibers": "^4.0.1",
-    "sass": "^1.57.1",
-    "sass-loader": "^13.2.0",
-    "vue": "^2.7.14",
+    "vue": "^3.4.31",
     "vue-csv-import": "^3.3.10",
-    "vue-router": "^3.6.5",
-    "vuex": "^3.6.2"
+    "vue-router": "^3.6.5"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^5.0.8",
+    "@vitejs/plugin-vue": "^5.0.5",
     "@vue/cli-plugin-eslint": "^5.0.8",
-    "@vue/cli-service": "^5.0.8",
-    "babel-eslint": "^10.1.0",
+    "@vue/cli-service": "^3.3.1",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^7.20.0",
     "node-fetch": "^3.3.0",
-    "vue-template-compiler": "^2.7.14"
+    "typescript": "^5.5.3",
+    "vite": "^5.3.3",
+    "vue-template-compiler": "^2.7.14",
+    "vue-tsc": "^1.8.27"
   },
   "eslintConfig": {
     "root": true,

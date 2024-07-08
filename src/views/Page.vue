@@ -106,7 +106,7 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
   import { mapState, mapActions } from 'vuex';
   import LearnForm from '@/components/elements/LearnForm.vue';
   import ImportData from '@/components/elements/ImportData.vue';

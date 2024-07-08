@@ -114,7 +114,7 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
   import * as tf from '@tensorflow/tfjs';
   import { mapState, mapActions } from 'vuex';
 

@@ -1,7 +1,7 @@
 # neural-networks-web-analysis
 
-Node version 16.14.2
-NPM version 8.13.1
+Node version 20.14.0
+NPM version 10.7.0
 
 ## Project setup
 ```
