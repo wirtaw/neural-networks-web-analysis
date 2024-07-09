@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-import learnModel from './modules/learnModel.js';
-import metrics from './modules/metrics.js';
+import learnModel from './modules/learnModel';
+import metrics from './modules/metrics';
 
 Vue.use(Vuex);
 
