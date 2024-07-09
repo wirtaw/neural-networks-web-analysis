@@ -207,3 +207,4 @@
   padding: 0;
 }
 </style>
+(: { learnModel: { learnData: any; }; })(: { learnModel: { testData: any; }; })(: { learnModel: { trainStatus: any; }; })(: { learnModel: { predictClassName: any; }; }): any: any

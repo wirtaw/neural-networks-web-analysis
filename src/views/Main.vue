@@ -35,7 +35,7 @@ Technical Highlights:
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
   import NeuralNetworks from '@/components/NeuralNetworks.vue';
   export default {
     name: 'Main',
